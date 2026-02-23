@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>МясоДом — Фермерское мясо с доставкой</title>
+  <meta name="description" content="Свежее фермерское мясо, полуфабрикаты и готовая продукция с доставкой за 24 часа. Гарантия свежести или возврат денег.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%230C0806'/><text x='50%25' y='56%25' dominant-baseline='middle' text-anchor='middle' font-size='38'>🥩</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:       #0C0806;
+      --bg-card:  #161009;
+      --bg-layer: #1E1410;
+      --red:      #9B1C1C;
+      --red-lt:   #C23030;
+      --red-pale: #E05050;
+      --gold:     #C8884A;
+      --gold-lt:  #E0A060;
+      --cream:    #F5EDE0;
+      --muted:    #9A8070;
+      --border:   rgba(200,136,74,.18);
+      --border-lt:rgba(200,136,74,.09);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      font-family: 'Montserrat', sans-serif;
+      color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* ── ambient background glow ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 30%, rgba(155,28,28,.10) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 80% 70%, rgba(200,136,74,.06) 0%, transparent 60%);
+    }
+
+    /* ════════════════════════════════
+       NAVIGATION
+    ════════════════════════════════ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px;
+      height: 64px;
+      background: rgba(12,8,6,.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-lt);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 600;
+      color: var(--cream); text-decoration: none;
+      letter-spacing: .5px;
+    }
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex; gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 12px; font-weight: 500; letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--cream); }
+
+    .nav-cta {
+      background: var(--red);
+      color: #fff; border: none; cursor: pointer;
+      padding: 10px 22px; border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      transition: background .2s, transform .2s;
+    }
+    .nav-cta:hover { background: var(--red-lt); transform: translateY(-1px); }
+
+    /* ════════════════════════════════
+       HERO
+    ════════════════════════════════ */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center;
+      padding: 100px 24px 60px;
+      background:
+        radial-gradient(ellipse 90% 70% at 25% 40%, rgba(140,25,15,.32) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 60% at 80% 65%, rgba(180,70,15,.18) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 80% at 50% 100%, rgba(100,20,10,.25) 0%, transparent 50%),
+        var(--bg);
+    }
+
+    .hero-eyebrow {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+      opacity: 0; animation: fadeUp .8s ease .2s forwards;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 300; line-height: 1.08;
+      letter-spacing: 1px;
+      color: var(--cream);
+      max-width: 820px;
+      opacity: 0; animation: fadeUp .9s ease .35s forwards;
+    }
+    .hero h1 em {
+      font-style: italic; font-weight: 400;
+      color: var(--gold-lt);
+    }
+
+    .hero-sub {
+      margin-top: 22px;
+      font-size: 15px; font-weight: 300; line-height: 1.65;
+      color: var(--muted); max-width: 520px;
+      opacity: 0; animation: fadeUp .9s ease .5s forwards;
+    }
+
+    .hero-btns {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      justify-content: center; margin-top: 38px;
+      opacity: 0; animation: fadeUp .9s ease .65s forwards;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: #fff; text-decoration: none;
+      padding: 16px 36px; border-radius: 10px;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      transition: background .2s, transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(155,28,28,.35);
+    }
+    .btn-primary:hover {
+      background: var(--red-lt);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(155,28,28,.45);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--cream); text-decoration: none;
+      padding: 16px 36px; border-radius: 10px;
+      font-size: 13px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      border: 1px solid rgba(245,237,224,.25);
+      transition: border-color .2s, background .2s, transform .2s;
+    }
+    .btn-secondary:hover {
+      border-color: rgba(245,237,224,.55);
+      background: rgba(245,237,224,.05);
+      transform: translateY(-2px);
+    }
+
+    /* trust bar */
+    .hero-trust {
+      display: flex; gap: 32px; flex-wrap: wrap;
+      justify-content: center; margin-top: 52px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border-lt);
+      opacity: 0; animation: fadeUp .9s ease .8s forwards;
+    }
+
+    .trust-item {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 12px; font-weight: 500; color: var(--muted);
+    }
+    .trust-item strong { color: var(--cream); }
+    .trust-icon { font-size: 18px; }
+
+    /* ════════════════════════════════
+       SECTION BASE
+    ════════════════════════════════ */
+    .section {
+      position: relative; z-index: 1;
+      padding: 80px 24px;
+      max-width: 1100px; margin: 0 auto;
+    }
+
+    .sec-header {
+      text-align: center; margin-bottom: 52px;
+    }
+
+    .sec-eyebrow {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 14px;
+      display: block;
+    }
+
+    .sec-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 300; line-height: 1.15;
+      color: var(--cream);
+    }
+    .sec-title em { font-style: italic; color: var(--gold-lt); }
+
+    .sec-subtitle {
+      margin-top: 12px;
+      font-size: 14px; font-weight: 300;
+      color: var(--muted); line-height: 1.65;
+    }
+
+    /* divider */
+    .divider {
+      width: 100%; height: 1px;
+      background: var(--border-lt);
+    }
+
+    /* ════════════════════════════════
+       3 SCENARIOS
+    ════════════════════════════════ */
+    .scenarios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .scenario-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-lt);
+      border-radius: 18px;
+      padding: 32px 28px;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+      cursor: pointer;
+    }
+    .scenario-card:hover {
+      border-color: var(--border);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.3);
+    }
+    .scenario-card.featured {
+      border-color: rgba(155,28,28,.45);
+      background: linear-gradient(135deg, rgba(155,28,28,.08) 0%, var(--bg-card) 60%);
+    }
+    .scenario-card.featured:hover {
+      border-color: rgba(155,28,28,.7);
+    }
+
+    .scenario-icon { font-size: 38px; margin-bottom: 16px; display: block; }
+
+    .scenario-tag {
+      display: inline-block;
+      font-size: 8.5px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); border: 1px solid var(--border);
+      padding: 3px 10px; border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .scenario-card.featured .scenario-tag {
+      color: var(--red-pale); border-color: rgba(155,28,28,.4);
+    }
+
+    .scenario-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 400; line-height: 1.2;
+      color: var(--cream); margin-bottom: 10px;
+    }
+
+    .scenario-desc {
+      font-size: 13px; font-weight: 300;
+      color: var(--muted); line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .scenario-price {
+      font-size: 12px; font-weight: 600;
+      color: var(--gold);
+      letter-spacing: .5px;
+    }
+
+    .scenario-examples {
+      margin-top: 16px; padding-top: 16px;
+      border-top: 1px solid var(--border-lt);
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+
+    .example-chip {
+      font-size: 10px; font-weight: 500;
+      color: var(--muted);
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border-lt);
+      padding: 4px 10px; border-radius: 20px;
+    }
+
+    /* ════════════════════════════════
+       PRODUCTS
+    ════════════════════════════════ */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+    }
+
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-lt);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color .25s, transform .25s;
+    }
+    .product-card:hover {
+      border-color: var(--border);
+      transform: translateY(-3px);
+    }
+
+    .product-thumb {
+      height: 160px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 64px;
+      background: var(--bg-layer);
+      position: relative;
+    }
+
+    .product-cat-badge {
+      position: absolute; top: 12px; left: 12px;
+      font-size: 8px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 20px;
+    }
+    .badge-raw    { background: rgba(155,28,28,.25); color: var(--red-pale); border: 1px solid rgba(155,28,28,.4); }
+    .badge-semi   { background: rgba(200,136,74,.18); color: var(--gold-lt); border: 1px solid rgba(200,136,74,.35); }
+    .badge-ready  { background: rgba(60,120,60,.20); color: #80C880; border: 1px solid rgba(60,120,60,.4); }
+
+    .product-body { padding: 18px 18px 20px; }
+
+    .product-name {
+      font-size: 15px; font-weight: 600;
+      color: var(--cream); margin-bottom: 5px;
+    }
+
+    .product-note {
+      font-size: 11.5px; font-weight: 300;
+      color: var(--muted); line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .product-footer {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .product-price {
+      font-size: 18px; font-weight: 700;
+      color: var(--cream);
+    }
+    .product-price span {
+      font-size: 11px; font-weight: 400;
+      color: var(--muted); margin-left: 2px;
+    }
+
+    .btn-cart {
+      background: var(--red);
+      color: #fff; border: none; cursor: pointer;
+      padding: 9px 18px; border-radius: 8px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .5px;
+      transition: background .2s, transform .2s;
+    }
+    .btn-cart:hover { background: var(--red-lt); transform: scale(1.04); }
+
+    /* ════════════════════════════════
+       DELIVERY STEPS
+    ════════════════════════════════ */
+    .delivery-bg {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-lt);
+      border-bottom: 1px solid var(--border-lt);
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      position: relative;
+    }
+
+    .step {
+      text-align: center; padding: 32px 24px;
+      position: relative;
+    }
+
+    .step-num {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: rgba(155,28,28,.15);
+      border: 1px solid rgba(155,28,28,.4);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 600;
+      color: var(--red-pale);
+      margin: 0 auto 18px;
+    }
+
+    .step-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+
+    .step-title {
+      font-size: 15px; font-weight: 600;
+      color: var(--cream); margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 12.5px; font-weight: 300;
+      color: var(--muted); line-height: 1.6;
+    }
+
+    .step-arrow {
+      position: absolute; right: -10px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px; color: var(--border);
+      display: none;
+    }
+
+    /* ════════════════════════════════
+       REVIEWS
+    ════════════════════════════════ */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .review-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-lt);
+      border-radius: 16px; padding: 26px;
+    }
+
+    .review-stars {
+      font-size: 15px; letter-spacing: 2px;
+      color: var(--gold); margin-bottom: 14px;
+    }
+
+    .review-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; font-style: italic;
+      font-weight: 300; line-height: 1.65;
+      color: var(--cream); margin-bottom: 18px;
+    }
+
+    .review-author {
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    .review-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--bg-layer);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+
+    .review-name {
+      font-size: 12px; font-weight: 600; color: var(--cream);
+    }
+    .review-meta {
+      font-size: 10.5px; font-weight: 400; color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ════════════════════════════════
+       GUARANTEES
+    ════════════════════════════════ */
+    .guarantees-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .guarantee {
+      display: flex; gap: 16px;
+      align-items: flex-start;
+      background: var(--bg-card);
+      border: 1px solid var(--border-lt);
+      border-radius: 14px; padding: 22px 20px;
+    }
+
+    .guarantee-icon { font-size: 28px; flex-shrink: 0; }
+
+    .guarantee-title {
+      font-size: 13px; font-weight: 600;
+      color: var(--cream); margin-bottom: 5px;
+    }
+
+    .guarantee-desc {
+      font-size: 11.5px; font-weight: 300;
+      color: var(--muted); line-height: 1.55;
+    }
+
+    /* ════════════════════════════════
+       OFFER
+    ════════════════════════════════ */
+    .offer-wrap {
+      background:
+        radial-gradient(ellipse 80% 100% at 50% 50%, rgba(155,28,28,.14) 0%, transparent 70%),
+        var(--bg-card);
+      border: 1px solid rgba(155,28,28,.25);
+      border-radius: 24px;
+      padding: 52px 32px;
+      text-align: center;
+    }
+
+    .offer-badge {
+      display: inline-block;
+      background: var(--red); color: #fff;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 6px 18px; border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .offer-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 300; line-height: 1.15;
+      color: var(--cream); margin-bottom: 12px;
+    }
+    .offer-title em { font-style: italic; color: var(--gold-lt); }
+
+    .offer-sub {
+      font-size: 14px; font-weight: 300;
+      color: var(--muted); margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .offer-form {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      justify-content: center; max-width: 500px; margin: 0 auto;
+    }
+
+    .offer-input {
+      flex: 1; min-width: 200px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px; color: var(--cream);
+      outline: none;
+      transition: border-color .2s;
+    }
+    .offer-input::placeholder { color: var(--muted); }
+    .offer-input:focus { border-color: var(--gold); }
+
+    .offer-submit {
+      background: var(--red); color: #fff;
+      border: none; cursor: pointer;
+      padding: 14px 28px; border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      transition: background .2s, transform .2s;
+      white-space: nowrap;
+    }
+    .offer-submit:hover { background: var(--red-lt); transform: translateY(-1px); }
+
+    .offer-note {
+      margin-top: 14px;
+      font-size: 10.5px; color: var(--muted);
+    }
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+    footer {
+      position: relative; z-index: 1;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-lt);
+      padding: 40px 24px;
+    }
+
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 600;
+      color: var(--cream); text-decoration: none;
+    }
+    .footer-logo span { color: var(--gold); }
+
+    .footer-contacts {
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+
+    .footer-link {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 18px; border-radius: 10px;
+      text-decoration: none;
+      font-size: 12px; font-weight: 600;
+      transition: background .2s, transform .2s;
+    }
+    .footer-link.phone {
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border-lt);
+      color: var(--cream);
+    }
+    .footer-link.tg {
+      background: rgba(0,136,204,.10);
+      border: 1px solid rgba(0,136,204,.25);
+      color: #44C0F4;
+    }
+    .footer-link.wa {
+      background: rgba(37,211,102,.08);
+      border: 1px solid rgba(37,211,102,.22);
+      color: #4ECC80;
+    }
+    .footer-link:hover { transform: translateY(-2px); }
+
+    .footer-copy {
+      width: 100%; text-align: center;
+      margin-top: 24px; padding-top: 20px;
+      border-top: 1px solid var(--border-lt);
+      font-size: 11px; color: var(--muted);
+    }
+
+    /* ════════════════════════════════
+       ANIMATIONS
+    ════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ════════════════════════════════
+       MOBILE
+    ════════════════════════════════ */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .nav { padding: 0 18px; }
+      .section { padding: 56px 18px; }
+      .hero-trust { gap: 18px; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .offer-wrap { padding: 36px 20px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (min-width: 900px) {
+      .step-arrow { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ─────────────────────────────── -->
+<nav class="nav">
+  <a href="#" class="nav-logo">Мясо<span>Дом</span></a>
+  <ul class="nav-links">
+    <li><a href="#catalog">Каталог</a></li>
+    <li><a href="#delivery">Доставка</a></li>
+    <li><a href="#reviews">Отзывы</a></li>
+    <li><a href="#contacts">Контакты</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('offer').scrollIntoView({behavior:'smooth'})">Заказать</button>
+</nav>
+
+<!-- ── HERO ───────────────────────────────────── -->
+<section class="hero">
+  <p class="hero-eyebrow">Фермерское мясо с доставкой</p>
+  <h1>Свежее мясо — от фермы<br>до вашего стола <em>за 24 часа</em></h1>
+  <p class="hero-sub">Сырое мясо, полуфабрикаты и готовая продукция. Без посредников, с ветеринарными сертификатами и гарантией свежести.</p>
+  <div class="hero-btns">
+    <a href="#catalog" class="btn-primary">Выбрать мясо →</a>
+    <a href="#scenarios" class="btn-secondary">Как это работает</a>
+  </div>
+  <div class="hero-trust">
+    <div class="trust-item">
+      <span class="trust-icon">⭐</span>
+      <div><strong>4.9</strong> рейтинг · 2 340 отзывов</div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-icon">🚚</span>
+      <div>Доставка <strong>за 24 часа</strong></div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-icon">🔄</span>
+      <div><strong>Возврат денег</strong> если не понравится</div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-icon">📦</span>
+      <div><strong>5 000+</strong> заказов в месяц</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── 3 SCENARIOS ────────────────────────────── -->
+<div id="scenarios">
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-eyebrow">Три категории</span>
+      <h2 class="sec-title">Как вы хотите<br><em>готовить сегодня?</em></h2>
+      <p class="sec-subtitle">Выберите то, что подходит вашему ритму жизни — мы закроем любой вариант</p>
+    </div>
+    <div class="scenarios-grid">
+
+      <div class="scenario-card">
+        <span class="scenario-icon">🥩</span>
+        <span class="scenario-tag">Сырое мясо</span>
+        <h3 class="scenario-title">Хочу готовить сам</h3>
+        <p class="scenario-desc">Для тех, кто знает толк в кулинарии. Фермерское мясо прямо с бойни — без заморозки, без консервантов.</p>
+        <div class="scenario-price">от 380 ₽/кг</div>
+        <div class="scenario-examples">
+          <span class="example-chip">Стейки</span>
+          <span class="example-chip">Свинина</span>
+          <span class="example-chip">Говядина</span>
+          <span class="example-chip">Баранина</span>
+          <span class="example-chip">Птица</span>
+        </div>
+      </div>
+
+      <div class="scenario-card featured">
+        <span class="scenario-icon">⏱</span>
+        <span class="scenario-tag">Полуфабрикаты</span>
+        <h3 class="scenario-title">Ужин за 15 минут</h3>
+        <p class="scenario-desc">Мясо уже подготовлено — фарш, котлеты, шашлык, пельмени. Вы только жарите. Вкус домашний, время — ваше.</p>
+        <div class="scenario-price">от 320 ₽/кг</div>
+        <div class="scenario-examples">
+          <span class="example-chip">Котлеты</span>
+          <span class="example-chip">Шашлык</span>
+          <span class="example-chip">Фарш</span>
+          <span class="example-chip">Пельмени</span>
+          <span class="example-chip">Отбивные</span>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <span class="scenario-icon">🍽</span>
+        <span class="scenario-tag">Готовая продукция</span>
+        <h3 class="scenario-title">Открыть и съесть</h3>
+        <p class="scenario-desc">Колбасы, ветчина, паштеты, нарезки — ноль готовки. Идеально для перекусов, завтраков и офиса.</p>
+        <div class="scenario-price">от 280 ₽/250 г</div>
+        <div class="scenario-examples">
+          <span class="example-chip">Колбасы</span>
+          <span class="example-chip">Ветчина</span>
+          <span class="example-chip">Паштеты</span>
+          <span class="example-chip">Нарезки</span>
+          <span class="example-chip">Сосиски</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── PRODUCTS ───────────────────────────────── -->
+<div id="catalog">
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-eyebrow">Топ позиции</span>
+      <h2 class="sec-title">Популярные <em>товары</em></h2>
+      <p class="sec-subtitle">Самые востребованные позиции по лучшим ценам</p>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-thumb">
+          🥩
+          <span class="product-cat-badge badge-raw">Сырое мясо</span>
+        </div>
+        <div class="product-body">
+          <div class="product-name">Стейк Рибай</div>
+          <div class="product-note">Мраморная говядина, охлаждённая. Толщина 2.5 см, вес ~300 г</div>
+          <div class="product-footer">
+            <div class="product-price">890 ₽<span>/кг</span></div>
+            <button class="btn-cart">В корзину</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-thumb">
+          🍔
+          <span class="product-cat-badge badge-semi">Полуфабрикат</span>
+        </div>
+        <div class="product-body">
+          <div class="product-name">Котлеты домашние</div>
+          <div class="product-note">Говядина + свинина 60/40, без наполнителей. Упаковка 500 г</div>
+          <div class="product-footer">
+            <div class="product-price">420 ₽<span>/кг</span></div>
+            <button class="btn-cart">В корзину</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-thumb">
+          🍢
+          <span class="product-cat-badge badge-semi">Полуфабрикат</span>
+        </div>
+        <div class="product-body">
+          <div class="product-name">Шашлык из свинины</div>
+          <div class="product-note">Шея, замаринован в луке и специях. Готов к жарке. Упаковка 1 кг</div>
+          <div class="product-footer">
+            <div class="product-price">380 ₽<span>/кг</span></div>
+            <button class="btn-cart">В корзину</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-thumb">
+          🌭
+          <span class="product-cat-badge badge-ready">Готовое</span>
+        </div>
+        <div class="product-body">
+          <div class="product-name">Колбаса варёная</div>
+          <div class="product-note">Докторская, ГОСТ. Без сои и красителей. Батон 400 г</div>
+          <div class="product-footer">
+            <div class="product-price">340 ₽<span>/кг</span></div>
+            <button class="btn-cart">В корзину</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-thumb">
+          🫙
+          <span class="product-cat-badge badge-ready">Готовое</span>
+        </div>
+        <div class="product-body">
+          <div class="product-name">Паштет из печени</div>
+          <div class="product-note">Говяжья печень, сливочное масло, специи. Банка 250 г</div>
+          <div class="product-footer">
+            <div class="product-price">180 ₽<span>/250 г</span></div>
+            <button class="btn-cart">В корзину</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-thumb">
+          🐖
+          <span class="product-cat-badge badge-raw">Сырое мясо</span>
+        </div>
+        <div class="product-body">
+          <div class="product-name">Свиная рулька</div>
+          <div class="product-note">Охлаждённая, подходит для запекания и варки. Вес ~1.2 кг</div>
+          <div class="product-footer">
+            <div class="product-price">290 ₽<span>/кг</span></div>
+            <button class="btn-cart">В корзину</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── DELIVERY ────────────────────────────────── -->
+<div class="delivery-bg" id="delivery">
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-eyebrow">Как мы работаем</span>
+      <h2 class="sec-title">Три шага до<br><em>свежего мяса</em></h2>
+    </div>
+    <div class="steps-grid">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <span class="step-icon">📱</span>
+        <div class="step-title">Оформите заказ</div>
+        <div class="step-desc">На сайте, по телефону или в Telegram. Занимает 2 минуты. Минимальный заказ — 1 500 ₽</div>
+        <span class="step-arrow">→</span>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <span class="step-icon">🧊</span>
+        <div class="step-title">Соберём и упакуем</div>
+        <div class="step-desc">Упаковываем в термоизолирующие пакеты с хладоэлементами. Температура контролируется до момента вручения</div>
+        <span class="step-arrow">→</span>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <span class="step-icon">🚚</span>
+        <div class="step-title">Доставим в срок</div>
+        <div class="step-desc">Доставка по городу за 24 часа. Бесплатно при заказе от 3 000 ₽. Выбор удобного времени</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── REVIEWS ─────────────────────────────────── -->
+<div id="reviews">
+  <div class="section">
+    <div class="sec-header">
+      <span class="sec-eyebrow">Отзывы покупателей</span>
+      <h2 class="sec-title">Что говорят<br><em>наши клиенты</em></h2>
+    </div>
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">«Котлеты как у бабушки — сочные, без химии. Заказываем каждую неделю уже полгода. Дети в восторге!»</p>
+        <div class="review-author">
+          <div class="review-avatar">👩</div>
+          <div>
+            <div class="review-name">Марина К.</div>
+            <div class="review-meta">Постоянный покупатель · Полуфабрикаты</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">«Стейки Рибай — отличные, свежие, с хорошей мраморностью. Доставили строго в срок, упаковка держала холод отлично.»</p>
+        <div class="review-author">
+          <div class="review-avatar">👨</div>
+          <div>
+            <div class="review-name">Алексей П.</div>
+            <div class="review-meta">Покупатель · Сырое мясо</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">«Очень удобно — беру и сырое мясо для выходных, и готовые колбасы для завтраков в одном заказе. Больше не езжу в магазин.»</p>
+        <div class="review-author">
+          <div class="review-avatar">👩</div>
+          <div>
+            <div class="review-name">Ольга С.</div>
+            <div class="review-meta">Покупатель · Все категории</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ── GUARANTEES ──────────────────────────────── -->
+<div class="section">
+  <div class="sec-header">
+    <span class="sec-eyebrow">Наши обязательства</span>
+    <h2 class="sec-title">Покупайте<br><em>с уверенностью</em></h2>
+  </div>
+  <div class="guarantees-grid">
+    <div class="guarantee">
+      <span class="guarantee-icon">✅</span>
+      <div>
+        <div class="guarantee-title">Гарантия свежести</div>
+        <div class="guarantee-desc">Если мясо не понравилось — вернём деньги без вопросов в течение 24 часов</div>
+      </div>
+    </div>
+    <div class="guarantee">
+      <span class="guarantee-icon">🌡</span>
+      <div>
+        <div class="guarantee-title">Холодная цепочка</div>
+        <div class="guarantee-desc">Доставляем в термопакетах с хладоэлементами. Мясо приезжает таким, каким ушло со склада</div>
+      </div>
+    </div>
+    <div class="guarantee">
+      <span class="guarantee-icon">📋</span>
+      <div>
+        <div class="guarantee-title">Ветеринарные сертификаты</div>
+        <div class="guarantee-desc">Вся продукция имеет ветеринарное свидетельство и зарегистрирована в системе «Меркурий»</div>
+      </div>
+    </div>
+    <div class="guarantee">
+      <span class="guarantee-icon">🏡</span>
+      <div>
+        <div class="guarantee-title">Прямо с фермы</div>
+        <div class="guarantee-desc">Работаем напрямую с проверенными фермерами. Никаких посредников — ниже цена, выше качество</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── OFFER ────────────────────────────────────── -->
+<div id="offer">
+  <div class="section">
+    <div class="offer-wrap">
+      <span class="offer-badge">Только для новых клиентов</span>
+      <h2 class="offer-title">Первый заказ<br><em>со скидкой 15%</em></h2>
+      <p class="offer-sub">Оставьте номер — мы свяжемся в Telegram или WhatsApp, поможем выбрать и оформим заказ со скидкой</p>
+      <form class="offer-form" onsubmit="return false;">
+        <input class="offer-input" type="text" placeholder="Ваше имя">
+        <input class="offer-input" type="tel" placeholder="Телефон или Telegram">
+        <button class="offer-submit">Получить скидку</button>
+      </form>
+      <p class="offer-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ───────────────────────────────────── -->
+<footer id="contacts">
+  <div class="footer-inner">
+    <a href="#" class="footer-logo">Мясо<span>Дом</span></a>
+    <div class="footer-contacts">
+      <a href="tel:+78001234567" class="footer-link phone">
+        📞 8-800-123-45-67
+      </a>
+      <a href="https://t.me/myasodom" class="footer-link tg" target="_blank">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        Telegram
+      </a>
+      <a href="https://wa.me/78001234567" class="footer-link wa" target="_blank">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+    <div class="footer-copy">
+      © 2025 МясоДом · Фермерское мясо с доставкой · Все права защищены
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
