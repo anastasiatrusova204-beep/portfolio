@@ -301,6 +301,20 @@
       background: rgba(255,255,255,.04);
       border: 1px solid var(--border-lt);
       padding: 4px 10px; border-radius: 20px;
+      cursor: pointer;
+      transition: color .2s, background .2s, border-color .2s, transform .15s;
+      user-select: none;
+    }
+    .example-chip:hover {
+      color: var(--cream);
+      background: rgba(155,28,28,.12);
+      border-color: rgba(155,28,28,.4);
+      transform: translateY(-1px);
+    }
+    .example-chip.active {
+      color: #fff;
+      background: var(--red);
+      border-color: var(--red);
     }
 
     /* ════════════════════════════════
@@ -1031,6 +1045,19 @@
   document.getElementById('btn-order').addEventListener('click', function() {
     var el = document.getElementById('offer');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Чипы-категории — скролл к каталогу + подсветка
+  document.querySelectorAll('.example-chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      // подсветить активный чип
+      document.querySelectorAll('.example-chip').forEach(function(c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      setTimeout(function() { chip.classList.remove('active'); }, 1800);
+      // скролл к каталогу
+      var catalog = document.getElementById('catalog');
+      if (catalog) catalog.scrollIntoView({ behavior: 'smooth' });
+    });
   });
 
   // Кнопки "В корзину" — визуальная обратная связь
