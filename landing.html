@@ -677,14 +677,14 @@
     <li><a href="#reviews">Отзывы</a></li>
     <li><a href="#contacts">Контакты</a></li>
   </ul>
-  <button class="nav-cta" onclick="document.getElementById('offer').scrollIntoView({behavior:'smooth'})">Заказать</button>
+  <button class="nav-cta" id="btn-order">Заказать</button>
 </nav>
 
 <!-- ── HERO ───────────────────────────────────── -->
 <section class="hero">
   <p class="hero-eyebrow">Фермерское мясо с доставкой</p>
   <h1>Свежее мясо — от фермы<br>до вашего стола <em>за 24 часа</em></h1>
-  <p class="hero-sub">Сырое мясо, полуфабрикаты и готовая продукция. Без посредников, с ветеринарными сертификатами и гарантией свежести.</p>
+  <p class="hero-sub">Полуфабрикаты и готовая продукция из мяса с доставкой. Без посредников, с ветеринарными сертификатами и гарантией свежести.</p>
   <div class="hero-btns">
     <a href="#catalog" class="btn-primary">Выбрать мясо →</a>
     <a href="#scenarios" class="btn-secondary">Как это работает</a>
@@ -715,26 +715,11 @@
 <div id="scenarios">
   <div class="section">
     <div class="sec-header">
-      <span class="sec-eyebrow">Три категории</span>
+      <span class="sec-eyebrow">Два категории</span>
       <h2 class="sec-title">Как вы хотите<br><em>готовить сегодня?</em></h2>
       <p class="sec-subtitle">Выберите то, что подходит вашему ритму жизни — мы закроем любой вариант</p>
     </div>
     <div class="scenarios-grid">
-
-      <div class="scenario-card">
-        <span class="scenario-icon">🥩</span>
-        <span class="scenario-tag">Сырое мясо</span>
-        <h3 class="scenario-title">Хочу готовить сам</h3>
-        <p class="scenario-desc">Для тех, кто знает толк в кулинарии. Фермерское мясо прямо с бойни — без заморозки, без консервантов.</p>
-        <div class="scenario-price">от 380 ₽/кг</div>
-        <div class="scenario-examples">
-          <span class="example-chip">Стейки</span>
-          <span class="example-chip">Свинина</span>
-          <span class="example-chip">Говядина</span>
-          <span class="example-chip">Баранина</span>
-          <span class="example-chip">Птица</span>
-        </div>
-      </div>
 
       <div class="scenario-card featured">
         <span class="scenario-icon">⏱</span>
@@ -1041,5 +1026,34 @@
   </div>
 </footer>
 
+<script>
+  // Кнопка "Заказать" в навигации
+  document.getElementById('btn-order').addEventListener('click', function() {
+    var el = document.getElementById('offer');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Кнопки "В корзину" — визуальная обратная связь
+  document.querySelectorAll('.btn-cart').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var orig = btn.textContent;
+      btn.textContent = '✓ Добавлено';
+      btn.style.background = 'var(--gold)';
+      setTimeout(function() {
+        btn.textContent = orig;
+        btn.style.background = '';
+      }, 1500);
+    });
+  });
+
+  // Кнопка "Получить скидку"
+  var offerBtn = document.querySelector('.offer-submit');
+  if (offerBtn) {
+    offerBtn.addEventListener('click', function() {
+      offerBtn.textContent = '✓ Заявка принята!';
+      offerBtn.disabled = true;
+    });
+  }
+</script>
 </body>
 </html>
