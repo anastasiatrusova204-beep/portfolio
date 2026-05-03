@@ -483,6 +483,19 @@
     /* ────────────────────────────────────────────
        DESKTOP — двухколоночный лейаут
     ──────────────────────────────────────────── */
+    /* ────────────────────────────────────────────
+       FOCUS VISIBLE — все интерактивные элементы
+    ──────────────────────────────────────────── */
+    .proj-link:focus-visible,
+    .soc-btn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+    .skill:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+
     @media (min-width: 860px) {
       body {
         align-items: flex-start;
@@ -500,7 +513,7 @@
         overflow: hidden;
       }
 
-      /* ── Левая колонка ── */
+      /* ── Левая колонка — вся занимает полную высоту грида ── */
       .card > .hero {
         grid-column: 1;
         height: 400px;
@@ -523,25 +536,63 @@
       /* ── Правая колонка: все .section ── */
       .card > .section {
         grid-column: 2;
-        padding: 32px 36px 0;
+        padding: 36px 40px 0;
         border-left: 1px solid var(--border-lt);
       }
-      /* последняя секция (цены) — добавляем отступ снизу */
-      .card > :nth-child(5) {
-        padding-bottom: 48px;
+
+      /* Разделители между секциями правой колонки (скиллы и проекты) */
+      .card > :nth-child(3),
+      .card > :nth-child(4) {
+        border-bottom: 1px solid var(--border-lt);
+        padding-bottom: 32px;
       }
 
-      /* Скиллы на десктопе — 3 колонки */
+      /* последняя секция (цены) — отступ снизу */
+      .card > :nth-child(5) {
+        padding-bottom: 52px;
+      }
+
+      /* ── Скиллы на десктопе — 3 колонки ── */
       .skills {
         grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
       }
 
-      /* Увеличиваем типографику правой колонки */
-      .proj-name  { font-size: 13px; }
-      .proj-desc  { font-size: 10.5px; }
-      .price-name { font-size: 12.5px; }
-      .price-note { font-size: 10px; }
-      .price-val  { font-size: 20px; }
+      /* Увеличиваем типографику скиллов */
+      .skill {
+        padding: 18px 16px 14px;
+      }
+      .skill-icon { font-size: 24px; margin-bottom: 10px; }
+      .skill-name { font-size: 12px; }
+      .skill-note { font-size: 10.5px; }
+
+      /* ── sec-label на десктопе ── */
+      .sec-label  { font-size: 10px; letter-spacing: 3.5px; margin-bottom: 22px; }
+
+      /* ── Типографика проектов ── */
+      .proj-name  { font-size: 14px; }
+      .proj-desc  { font-size: 11.5px; }
+      .proj-link  { font-size: 10px; padding: 6px 14px; }
+      .proj-tag   { font-size: 9px; }
+      .proj-icon  { font-size: 28px; width: 48px; height: 48px; }
+
+      /* ── Типографика цен ── */
+      .price-name { font-size: 13.5px; }
+      .price-note { font-size: 11px; }
+      .price-val  { font-size: 22px; }
+      .price-val span { font-size: 9.5px; }
+      .price-row  { padding: 18px 20px; }
+
+      /* ── QR и social на десктопе ── */
+      .qr-title   { font-size: 10px; letter-spacing: 2.5px; }
+      .qr-hint    { font-size: 11px; }
+      .soc-btn    { font-size: 12.5px; }
+
+      /* ── Footer ── */
+      .footer p   { font-size: 12px; }
+
+      /* ── Badges на десктопе ── */
+      .badge      { font-size: 9.5px; padding: 7px 18px; }
     }
   </style>
 </head>
