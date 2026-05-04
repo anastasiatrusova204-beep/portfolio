@@ -515,22 +515,24 @@
           radial-gradient(ellipse 40% 55% at 50% 92%, rgba(200,148,74,.08) 0%, transparent 55%);
       }
 
-      /* ── Card: grid без border/overflow — они мешают sticky ── */
+      /* ── Card: grid ── */
       .card {
         max-width: 1040px;
         width: 100%;
         padding-bottom: 0;
         display: grid;
         grid-template-columns: 360px 1fr;
+        grid-template-rows: auto;
         align-items: start;
-        min-height: 100vh;
         border: 1px solid var(--border-lt);
         border-top: none;
         border-bottom: none;
       }
 
-      /* ── Sidebar: sticky левая колонка ── */
+      /* ── Sidebar: растягивается на все строки правой колонки ── */
       .sidebar {
+        grid-column: 1;
+        grid-row: 1 / span 10;   /* перекрывает все строки контента */
         display: flex;
         flex-direction: column;
         position: sticky;
@@ -539,6 +541,7 @@
         overflow-y: auto;
         border-right: 1px solid var(--border-lt);
         scrollbar-width: none;
+        align-self: start;
       }
       .sidebar::-webkit-scrollbar { display: none; }
 
