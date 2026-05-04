@@ -570,34 +570,29 @@
         flex-shrink: 0;
       }
 
-      /* ── Правая колонка: секции без border-left (уже есть sidebar border-right) ── */
+      /* ── Правая колонка: секции ── */
       .card > .section {
         grid-column: 2;
-        padding: 36px 40px 0;
+        padding: 28px 40px 0;
       }
 
-      /* Первая секция — воздух сверху */
+      /* Первая секция — чуть больше воздуха сверху */
       .card > .section:first-of-type {
-        padding-top: 48px;
+        padding-top: 36px;
       }
 
-      /* После wrapper-а .sidebar прямые children card:
-         :nth-child(1) = .sidebar
-         :nth-child(2) = .section (скиллы)
-         :nth-child(3) = .section (проекты)
-         :nth-child(4) = .section (цены)
-      */
+      /* :nth-child(1) = .sidebar, (2) скиллы, (3) проекты, (4) цены */
 
-      /* Разделители между секциями (скиллы и проекты) */
+      /* Разделители между секциями */
       .card > :nth-child(2),
       .card > :nth-child(3) {
         border-bottom: 1px solid var(--border-lt);
-        padding-bottom: 32px;
+        padding-bottom: 20px;
       }
 
-      /* Последняя секция (цены) — отступ снизу */
+      /* Последняя секция — отступ снизу */
       .card > :nth-child(4) {
-        padding-bottom: 52px;
+        padding-bottom: 40px;
       }
 
       /* ── Скиллы на десктопе — 3 колонки ── */
@@ -615,7 +610,7 @@
       .skill-note { font-size: 10.5px; }
 
       /* ── sec-label на десктопе ── */
-      .sec-label  { font-size: 10px; letter-spacing: 3.5px; margin-bottom: 22px; }
+      .sec-label  { font-size: 10px; letter-spacing: 3.5px; margin-bottom: 16px; }
 
       /* ── Типографика проектов ── */
       .proj-name  { font-size: 14px; }
